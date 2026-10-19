@@ -21,7 +21,7 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: ballerina-platform/scan-ballerina@main
+      - uses: CharanaManawathilake/scan-ballerina@d1d33e7953a50bf2a83e604a886a441baed5ff0d # main
         with:
           ballerina-version: 2201.13.5
           platforms: github-code-scanning
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ballerina-platform/scan-ballerina@main
+      - uses: CharanaManawathilake/scan-ballerina@d1d33e7953a50bf2a83e604a886a441baed5ff0d # main
         with:
           ballerina-version: 2201.13.5
           category: severity-gate
