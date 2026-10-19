@@ -10,3 +10,8 @@ public function main() returns error? {
     int quantity = checkpanic int:fromString("3");
     io:println(total(quantity, 10, "USD"));
 }
+
+public function refund(string amount) returns int {
+    // New finding: checkpanic instead of check.
+    return checkpanic int:fromString(amount);
+}
