@@ -1,0 +1,40 @@
+name: Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # Uploads every finding to code scanning and never fails on findings.
+  # The ruleset on main decides whether a pull request can merge, based only
+  # on the alerts the pull request introduces.
+  code-scanning:
+    name: Code scanning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ballerina-platform/scan-ballerina@main
+        with:
+          ballerina-version: 2201.13.5
+          platforms: github-code-scanning
+
+  # For contrast: the action's own gate counts every finding in the package,
+  # so it fails on main and on every pull request while old findings remain.
+  severity-gate:
+    name: Severity gate (contrast)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ballerina-platform/scan-ballerina@main
+        with:
+          ballerina-version: 2201.13.5
+          category: severity-gate
+          fail-on-severity: low
